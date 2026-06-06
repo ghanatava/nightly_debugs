@@ -34,7 +34,8 @@ int main() {
         return 3;
     }
     grades = tempGrades;
+    free(tempGrades);
     //Code....
-
+    free(grades);
     return 0;
 }
