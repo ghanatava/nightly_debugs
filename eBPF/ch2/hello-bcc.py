@@ -3,7 +3,12 @@ from bcc import BPF
 
 program = r'''
 int hello(void *ctx){
-    bpf_trace_printk("hello eBPF");
+    u64 pid = (bpf_get_current_pid_tgid() >> 32) & 1;
+    if (pid){
+        bpf_trace_printk("hello even");
+        return 0;
+    } 
+    bpf_trace_printk("hello odd");
     return 0;
 }
 '''
