@@ -27,6 +27,12 @@ b = BPF(text=program)
 syscall = b.get_syscall_fnname("execve")
 b.attach_kprobe(event=syscall,fn_name="hello")
 
+
+# attaching it to multiple syscalls haha
+
+syscall2 = b.get_syscall_fnname("open")
+b.attach_kprobe(event=syscall2,fn_name="hello")
+
 def print_event(cpu, data, size):
     data = b["output"].event(data)
     print(f"{data.pid} {data.uid} {data.command.decode()} " + \
